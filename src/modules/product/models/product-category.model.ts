@@ -16,6 +16,8 @@ productCategorySchema.set('timestamps', true); // include timestamps in docs
 
 productCategorySchema.pre('validate', function (next) {
 
+    console.log('product-category.model.ts:productCategorySchema.pre');
+
     if (!this.DisplayIndex) {
         const sequencesController = require('../../mongoose-utilities/controllers/sequences.controller');
         sequencesController.nextVal('product-categories-seq', nextVal => {

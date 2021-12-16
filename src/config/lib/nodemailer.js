@@ -1,47 +1,27 @@
 var nodemailer = require('nodemailer');
 var aws = require('aws-sdk');
-aws.config.update({ region: 'us-east-1' });
+console.log(aws.config.credentials)
 
 module.exports = function () {
-    var mailer = {};
+var mailer = {};
 
-    // mailer.smtpTransport = nodemailer.createTransport(
-    //     {
-    //         service: 'SES',
-    //         auth: {
-    //             user: "AKIAIOJ4KLYW5MBQPYNQ",
-    //             pass: "AlY0gmwKdJXkT/KSLQt2xAi9N638sZhbvNWZvKUioodS"
-    //         }
-    //     });
+// mailer.smtpTransport = nodemailer.createTransport(
+//     {
+//         service: 'SES',
+//         auth: {
+//             user: "AKIAIOJ4KLYW5MBQPYNQ",
+//             pass: "AlY0gmwKdJXkT/KSLQt2xAi9N638sZhbvNWZvKUioodS"
+//         }
+//     });
 
-    mailer.sesTransport = nodemailer.createTransport({
+mailer.sesTransport = nodemailer.createTransport({
         SES: new aws.SES({
             apiVersion: '2010-12-01'
         })
     });
 
-    mailer.sendAdminEmail = (messageBody) => {
-        let mail = {
-            from: 'jeff@22ndtech.com', // sender address
-            to: 'jeff@22ndtech.com', // list of receivers
-            subject: '22ndtech-server Admin Email', // Subject line
-            text: messageBody, // plain text body
-            html: '<div>' + messageBody + '</div>' // html body
-        };
-
-        mailer.sesTransport.sendMail(mail, function (error, info) {
-            if (error) {
-                console.log("Error sending e-mail");
-            }
-
-            console.log("Admin Email Successfully sent");
-        });
-    }
-
-    return mailer;
+return mailer;
 }
-
-
 
 // // send some mail
 // mailer.sesTransport.sendMail({

@@ -1,15 +1,14 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const config = require('../../../config/config');
-let logger = config.logger.child({ file: 'checkout.controller.ts' });
-const stripe = require('stripe')(config.server.stripe_api_key);
+const stripe = require('stripe')('sk_test_vVsO3f7RSTWpPpgSzNUDjlZq');
 //const https = require('https');
 var request = require('request');
+const config = require('../../../config/config');
 var StripeSellerModel = require('mongoose').model('StripeSeller');
 const endicia_shipment_model_1 = require("../../endicia/models/endicia-shipment.model");
 exports.createCharge = function (req, res, next) {
     var checkoutInfo = req.body.checkoutInfo;
-    logger.debug({ checkoutInfo: checkoutInfo });
+    console.log('checkoutInfo = ' + JSON.stringify(checkoutInfo));
     let applicationFee = Math.round(checkoutInfo.total_before_tax * 20);
     try {
         stripe.charges.create({
@@ -18,13 +17,13 @@ exports.createCharge = function (req, res, next) {
             source: checkoutInfo.cardToken,
             application_fee: applicationFee
         }, {
-            stripe_account: config.server.stripe_account,
+            stripe_account: "acct_1AMR7nGGCQVVZE9Z",
         }, (err, charge) => {
             if (err) {
-                logger.error('checkout.controller.createCharge: error in stripe.charges.create err = ' + err);
+                console.log('checkout.controller.createCharge: error in stripe.charges.create err = ' + err);
                 return next(err);
             }
-            var shipment = new endicia_shipment_model_1.EndiciaShipment();
+            var shipment = new endicia_shipment_model_1.Shipment();
             shipment.first_name = checkoutInfo.nameoncard;
             shipment.last_name = '';
             shipment.company = checkoutInfo.company;
@@ -35,11 +34,10 @@ exports.createCharge = function (req, res, next) {
             shipment.email = checkoutInfo.address_email;
             shipment.phone = checkoutInfo.address_phone;
             shipment.mail_class = checkoutInfo.mail_class;
-            shipment.cart_items = JSON.stringify(checkoutInfo.cartItems);
             var endicia = new endicia_shipment_model_1.EndiciaShipments();
             endicia.createShipment(shipment, (err, results, fields) => {
                 if (err) {
-                    logger.error('checkout.controller.createCharge: error creating shipment err = ' + err);
+                    console.log('checkout.controller.createCharge: error creating shipment err = ' + err);
                     return next(err);
                 }
                 res.send(200, { charge: charge, results: results, fields: fields });
@@ -48,7 +46,7 @@ exports.createCharge = function (req, res, next) {
         });
     }
     catch (err) {
-        logger.error(err);
+        console.log('err = ' + err);
     }
 };
 exports.getClientAuthToken = function (req, res, next) {
@@ -78,7 +76,7 @@ exports.getClientAuthToken = function (req, res, next) {
         });
     }
     catch (err) {
-        logger.error(err);
+        console.log(err);
     }
 };
 exports.saveStripeSeller = function (req, res, next) {

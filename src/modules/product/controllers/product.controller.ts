@@ -2,20 +2,20 @@
 
 const aws = require('aws-sdk');
 const config = require('../../../config/config');
-let logger = config.logger;
 
 let s3 = new aws.S3();
 
 var ProductModel = require('mongoose').model('Product');
-var ProductProductCategoryModel = require('mongoose').model('ProductProductCategory');
 
 export var getProducts = function (req, res, next) {
+    console.log('product.controller.getProducts');
 
     ProductModel.find({}, 'id name description price', function (err, products) {
         if (err) {
             res.writeHead(500);
             return next(err);
         } else {
+    console.log('product.controller.getProducts: products found products = ' + products);
             res.send(200, products);
             return next();
         }
@@ -25,9 +25,13 @@ export var getProducts = function (req, res, next) {
 
 export var getProduct = function (req, res, next) {
 
+    console.log('product.controller.getProduct');
     ProductModel.findById(req.params.id).exec(function (err, product) {
         if (err) return next(err);
         if (!product) return next(new Error('Failed to load product ' + req.params.id));
+
+
+    console.log('product.controller.getProduct: found product = ' + product);
 
         res.writeHead(200, {
             'Content-Type': 'application/json; charset=utf-8'
@@ -79,7 +83,7 @@ export var addProducts = function (req, res, next) {
                             }
                         }
                         catch (err) {
-                            logger.error('Error = ' + err);
+                            console.log('Error = ' + err);
                             reject(err);
                         }
                     });
@@ -94,7 +98,7 @@ export var addProducts = function (req, res, next) {
                 return next();
             })
             .catch(function (error) {
-                logger.error(error);
+                console.log(error);
                 res.writeHead(500);
                 return next(error);
             });
@@ -105,7 +109,7 @@ export var addProducts = function (req, res, next) {
 
             if (err) return next(err);
             if (product) {
-                logger.error({ message: 'Unable to insert duplicate name', productName: req.body.name });
+                console.log('Unable to insert duplicate name ' + req.body.name);
                 res.writeHead(500);
                 res.end('Unable to insert duplicate name ' + req.body.name);
                 return next();
@@ -118,14 +122,14 @@ export var addProducts = function (req, res, next) {
                     });
                 }
                 catch (err) {
-                    logger.error(err);
+                    console.log('Error = ' + err);
                     throw err;
                 }
 
                 product.save(
                     function (err, product, numAffected) {
                         if (err) {
-                            logger.error(err);
+                            console.log(err);
                             res.writeHead(500);
                             res.end(err);
                         } else {
@@ -144,7 +148,7 @@ export var deleteAllProducts = function (req, res, next) {
     ProductModel.remove({},
         function (err, product) {
             if (err) {
-                logger.error(err);
+                console.log(err);
                 res.writeHead(500);
                 res.end(err);
             } else {
@@ -156,30 +160,20 @@ export var deleteAllProducts = function (req, res, next) {
 
 export var deleteProduct = function (req, res, next) {
 
-
-    ProductProductCategoryModel.remove({ Product: new Object(req.params.id) },
-        (err, productProductCategory) => {
-            if (err) {
-                logger.error(err);
-                res.writeHead(500);
-                res.end(err);
-            } else {
-                ProductModel.findByIdAndRemove(new Object(req.params.id), function (err, product) {
-                    if (err) {
-                        res.status(500);
-                        res.json({
-                            type: false,
-                            data: 'Error occured in deleteProduct (' + req.params.id + '): ' + err
-                        })
-                    } else {
-                        res.status(201);
-                        res.json({
-                            "message": 'Product id: ' + req.params.id + ' deleted successfully'
-                        })
-                    }
-                })
-            }
-        });
+    ProductModel.findByIdAndRemove(new Object(req.params.id), function (err, product) {
+        if (err) {
+            res.status(500);
+            res.json({
+                type: false,
+                data: 'Error occured in deleteProduct (' + req.params.id + '): ' + err
+            })
+        } else {
+            res.status(201);
+            res.json({
+                "message": 'Product id: ' + req.params.id + ' deleted successfully'
+            })
+        }
+    })
 }
 
 export var updateProducts = function (req, res, next) {
@@ -204,7 +198,7 @@ export var updateProducts = function (req, res, next) {
             product.save(
                 function (err, product, numAffected) {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                         res.writeHead(500);
                         res.end(err);
                     } else {

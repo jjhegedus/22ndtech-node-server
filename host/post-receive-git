@@ -1,0 +1,28 @@
+#!/bin/sh -x
+echo "git starting post-receive in folder"
+pwd
+date
+
+# cd ..
+GIT_DIR='/usr/local/src/git/22ndtech-server.git'
+
+echo "preparing to push in folder "
+pwd
+
+# push to the web site
+git push local master
+
+# switch to the website and reset it as well
+cd /usr/local/src/22ndtech-server
+
+# GIT_DIR='/usr/local/src/apgv-server'
+unset GIT_DIR
+echo "preparing to git reset in folder "
+pwd
+
+git reset --hard
+
+mongo update-mongo.js
+
+# Create in the <git-repo>/hooks directory
+# After creating, make executable using : chmod +x post-receive

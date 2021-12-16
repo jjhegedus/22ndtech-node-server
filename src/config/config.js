@@ -46,8 +46,22 @@ const getGlobbedPaths = function (globPatterns, excludes) {
     return output;
 };
 
-const setupLogger = function (config) {
-    return bunyan.createLogger(config.logger_options);
+const setupLogger = function () {
+    return bunyan.createLogger({
+        name: process.env.APP_SERVER_NAME,
+        serializers: {
+            app: function (app) {
+                if (app) {
+                    return {
+                        appName: app.name,
+                        appUrl: app.url
+                    };
+                }
+            },
+            req: bunyan.stdSerializers.req,
+            res: bunyan.stdSerializers.res
+        }
+    });
 };
 
 const initServerSettings = function (config) {
@@ -57,12 +71,10 @@ const initServerSettings = function (config) {
     
     if(config.environment == 'dev') {
         setEnvSpecificConfig = require('./dev.config').setEnvironmentSpecificConfiguration;
-    } else if(config.environment == 'external-test') {
-        setEnvSpecificConfig = require('./dev.external-test.config').setEnvironmentSpecificConfiguration;
-    } else if(config.environment == 'prod') {
+    } else if(config.environment == 'dev-products2') {
+        setEnvSpecificConfig = require('./dev.products2.config').setEnvironmentSpecificConfiguration;
+    }else if(config.environment == 'prod') {
         setEnvSpecificConfig = require('./prod.config').setEnvironmentSpecificConfiguration;
-    } else if(config.environment == 'dev-prod-db') {
-        setEnvSpecificConfig = require('./dev-prod-db.config').setEnvironmentSpecificConfiguration;
     }
 
     config.server = {};
@@ -107,7 +119,7 @@ const initGlobalConfig = function () {
 
     initServerSettings(config);
     initDbSettings(config);
-    config.logger = setupLogger(config);
+    config.logger = setupLogger();
     initGlobalConfigFiles(config, assets);
     // initAwsSettings(config);
 

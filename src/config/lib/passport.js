@@ -9,7 +9,7 @@ module.exports.init = function () {
     });
 
     passport.deserializeUser(function(id, done) {
-        logger.debug({'passport.deserializeUser': id, done: done});
+        console.log('passport.deserializeUser: id = ' + id + ' done = ' + done)
         User.findById(id, function (err, user) {
           done(err, user);
         });

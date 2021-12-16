@@ -1,5 +1,4 @@
 const config = require('../../../config/config');
-let logger = config.logger;
 
 let jwt = require('jsonwebtoken');
 let nodemailer = require('../../../config/lib/nodemailer')();
@@ -98,6 +97,7 @@ export let signout = function (req, res) {
 
 export let decodeToken = function (req, res, next) {
     var token = req.cookies.jsonWebToken;
+    // console.log('token = ' + JSON.stringify(token));
     
     jwt.verify(token, config.jwtSecret, function (err, decoded) {
         if (err) {
@@ -134,7 +134,7 @@ export let userById = function (req, res, next, id) {
 }
 
 export let getUserById = function (req, res, next) {
-    logger.debug('req.id = ' + req.params.id);
+    console.log('req.id = ' + req.params.id);
     UserModel.findById(req.params.id).exec(function (err, user) {
         if (err) return next(err);
         if (!user) return next(new Error('Failed to load user ' + req.params.id));

@@ -63,7 +63,7 @@ describe("create user", function () {
         lastName: 'Hegedus',
         email: 'Jeff@22ndTech.com',
         userName: 'Jeff@22ndTech.com',
-        password: '1Bluemonk@'
+        password: 'mypassword'
     };
 
     var userId: string;

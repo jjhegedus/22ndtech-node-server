@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const config = require('../../../config/config');
-let logger = config.logger;
 var SequencesModel = require('mongoose').model('Sequences');
 SequencesModel.executingCallback = false;
 var processing = false;
@@ -13,7 +12,7 @@ exports.nextVal = function (sequenceName, callback) {
         processing = true;
         var nextValDoc = SequencesModel.findOneAndUpdate({ sequenceName: sequenceName }, { $inc: { nextVal: 1 } }, function (err, seq) {
             if (err) {
-                logger.error(err);
+                console.log('sequences.controller.ts:nextVal' + err);
                 processing = false;
                 throw (err);
             }
@@ -30,7 +29,7 @@ exports.setPreVal = function (sequenceName, callback) {
         processing = true;
         var nextValDoc = SequencesModel.findOneAndUpdate({ sequenceName: sequenceName }, { $inc: { nextVal: -1 } }, { new: true }, function (err, seq) {
             if (err) {
-                logger.error(err);
+                console.log('sequences.controller.ts:setPreVal' + err);
                 processing = false;
                 throw (err);
             }
@@ -49,7 +48,7 @@ exports.setVal = function (sequenceName, newValue, callback) {
         processing = true;
         var nextValDoc = SequencesModel.findOneAndUpdate({ sequenceName: sequenceName }, { $set: { nextVal: newValue } }, function (err, seq) {
             if (err) {
-                logger.error(err);
+                console.log('sequences.controller.ts:setVal' + err);
                 processing = false;
                 throw (err);
             }

@@ -10,6 +10,7 @@ module.exports = function (app) {
         var user = req.body;
         req.username = user.userName;
         req.password = user.password;
+        // console.log('passport._deserializers[0] = ' + passport._deserializers[0]);
         passport.authenticate('local', function (err, user, info) {
             if (err) {
                 return next(err);

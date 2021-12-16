@@ -1,5 +1,4 @@
 ﻿const config = require('../../../config/config');
-let logger = config.logger;
 
 var SequencesModel = require('mongoose').model('Sequences');
 SequencesModel.executingCallback = false;
@@ -16,7 +15,7 @@ export var nextVal = function (sequenceName, callback) {
             { $inc: { nextVal : 1 } },
             function (err, seq) {
                 if (err) {
-                    logger.error(err);
+                    console.log('sequences.controller.ts:nextVal' + err);
                     processing = false;
                     throw (err);
                 }
@@ -38,7 +37,7 @@ export var setPreVal = function (sequenceName, callback) {
             { new: true },
             function (err, seq) {
                 if (err) {
-                    logger.error(err);
+                    console.log('sequences.controller.ts:setPreVal' + err);
                     processing = false;
                     throw (err);
                 }
@@ -61,7 +60,7 @@ export var setVal = function (sequenceName, newValue, callback) {
             { $set: { nextVal: newValue } },
             function (err, seq) {
                 if (err) {
-                    logger.error(err);
+                    console.log('sequences.controller.ts:setVal' + err);
                     processing = false;
                     throw (err);
                 }

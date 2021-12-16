@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws = require('aws-sdk');
 const config = require('../../../config/config');
-let logger = config.log;
 var mongoose = require('mongoose');
 var ProductImageModel = mongoose.model('ProductImage');
 var ProductModel = mongoose.model('Product');
@@ -112,7 +111,7 @@ exports.getProductImages = function (req, res, next) {
                                 // Gotta delete the record from the database
                                 dbImage.remove(err => {
                                     if (err) {
-                                        logger.error(err);
+                                        console.log(err);
                                         res.writeHead(500);
                                         return res.send(err);
                                     }
@@ -204,7 +203,7 @@ exports.deleteProductImage = function (req, res, next) {
                         ]
                     }, { $inc: { DisplayIndex: -1 } }, { multi: true, runValidators: true }, function (err, rawResponse) {
                         if (err) {
-                            logger.error(err);
+                            console.log(err);
                         }
                         else {
                             sequencesController.setPreVal('product-image-seq', preVal => {
@@ -234,14 +233,14 @@ exports.moveUp = function (req, res, next) {
                 }]
         }, { $inc: { DisplayIndex: +1 } }, { runValidators: true }, (err, rawResponse) => {
             if (err) {
-                logger.error(err);
+                console.log(err);
             }
             else {
                 ProductImageModel.findByIdAndUpdate(imageId, { $set: { DisplayIndex: newDisplayIndex } })
                     .populate('Product')
                     .exec((err, innerDoc) => {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                     }
                     else {
                         ProductImageModel.
@@ -276,14 +275,14 @@ exports.moveDown = function (req, res, next) {
                 }]
         }, { $inc: { DisplayIndex: -1 } }, { runValidators: true }, (err, rawResponse) => {
             if (err) {
-                logger.error(err);
+                console.log(err);
             }
             else {
                 ProductImageModel.findByIdAndUpdate(imageId, { $set: { DisplayIndex: newDisplayIndex } })
                     .populate('Product')
                     .exec((err, innerDoc) => {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                     }
                     else {
                         ProductImageModel.
@@ -333,7 +332,7 @@ exports.moveTo = function (req, res, next) {
                     .sort({ DisplayIndex: -1 })
                     .exec((err, docs1) => {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                     }
                     else {
                         var numUpdates1 = 0;
@@ -353,7 +352,7 @@ exports.moveTo = function (req, res, next) {
                                         .populate('Product')
                                         .exec((err, innerDoc) => {
                                         if (err) {
-                                            logger.error(err);
+                                            console.log(err);
                                             res.json(err);
                                         }
                                         else {
@@ -398,7 +397,7 @@ exports.moveTo = function (req, res, next) {
                     .sort({ DisplayIndex: 1 })
                     .exec((err, docs1) => {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                     }
                     else {
                         var numUpdates2 = 0;
@@ -418,7 +417,7 @@ exports.moveTo = function (req, res, next) {
                                         .populate('Product')
                                         .exec((err, innerDoc) => {
                                         if (err) {
-                                            logger.error(err);
+                                            console.log(err);
                                             res.json(err);
                                         }
                                         else {

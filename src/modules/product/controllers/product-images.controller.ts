@@ -2,7 +2,6 @@
 
 const aws = require('aws-sdk');
 const config = require('../../../config/config');
-let logger = config.log;
 
 var mongoose = require('mongoose');
 
@@ -132,7 +131,7 @@ export var getProductImages = function (req, res, next) {
                                 // Gotta delete the record from the database
                                 dbImage.remove(err => {
                                     if (err) {
-                                        logger.error(err);
+                                        console.log(err);
                                         res.writeHead(500);
                                         return res.send(err);
                                     }
@@ -233,7 +232,7 @@ export var deleteProductImage = function (req, res, next) {
                             { multi: true, runValidators: true },
                             function (err, rawResponse) {
                                 if (err) {
-                                    logger.error(err);
+                                    console.log(err);
                                 } else {
                                     sequencesController.setPreVal('product-image-seq', preVal => {
                                         res.json(rawResponse);
@@ -274,14 +273,14 @@ export var moveUp = function (req, res, next) {
                 { runValidators: true },
                 (err, rawResponse) => {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                     } else {
                         ProductImageModel.findByIdAndUpdate(imageId, { $set: { DisplayIndex: newDisplayIndex } })
                             .populate('Product')
                             .exec(
                             (err, innerDoc) => {
                                 if (err) {
-                                    logger.error(err);
+                                    console.log(err);
                                 } else {
                                     ProductImageModel.
                                         find({ Product: doc._doc.Product.id })
@@ -326,14 +325,14 @@ export var moveDown = function (req, res, next) {
                 { runValidators: true },
                 (err, rawResponse) => {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                     } else {
                         ProductImageModel.findByIdAndUpdate(imageId, { $set: { DisplayIndex: newDisplayIndex } })
                             .populate('Product')
                             .exec(
                             (err, innerDoc) => {
                                 if (err) {
-                                    logger.error(err);
+                                    console.log(err);
                                 } else {
                                     ProductImageModel.
                                         find({ Product: doc._doc.Product.id })
@@ -392,7 +391,7 @@ export var moveTo = function (req, res, next) {
                             .sort({ DisplayIndex: -1 })
                             .exec((err, docs1) => {
                                 if (err) {
-                                    logger.error(err);
+                                    console.log(err);
                                 } else {
                                     var numUpdates1 = 0;
                                     for (var i1 = 0; i1 < docs1.length; i1++) {
@@ -416,7 +415,7 @@ export var moveTo = function (req, res, next) {
                                                         .exec(
                                                         (err, innerDoc) => {
                                                             if (err) {
-                                                                logger.error(err);
+                                                                console.log(err);
                                                                 res.json(err);
                                                             } else {
                                                                 ProductImageModel.
@@ -471,7 +470,7 @@ export var moveTo = function (req, res, next) {
                             //{ runValidators: true },
                             .exec((err, docs1) => {
                                 if (err) {
-                                    logger.error(err);
+                                    console.log(err);
                                 } else {
                                     var numUpdates2 = 0;
                                     for (var i2 = 0; i2 < docs1.length; i2++) {
@@ -496,7 +495,7 @@ export var moveTo = function (req, res, next) {
                                                         .exec(
                                                         (err, innerDoc) => {
                                                             if (err) {
-                                                                logger.error(err);
+                                                                console.log(err);
                                                                 res.json(err);
                                                             } else {
                                                                 ProductImageModel.

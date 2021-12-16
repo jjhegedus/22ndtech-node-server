@@ -4,14 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug dev-prod-db",
+            "name": "Debug dev-products2",
             "program": "${workspaceRoot}\\src\\app.js",
             "env": {
-                "APP_ENVIRONMENT": "dev-prod-db"
+                "APP_ENVIRONMENT": "dev-products2"
             }
         },
         {
@@ -30,15 +29,6 @@
             "program": "${workspaceRoot}/src/app.js",
             "env": {
                 "APP_ENVIRONMENT": "prod"
-            }
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug external-test",
-            "program": "${workspaceRoot}/src/app.js",
-            "env": {
-                "APP_ENVIRONMENT": "external-test"
             }
         }
     ]

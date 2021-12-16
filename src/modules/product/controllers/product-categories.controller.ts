@@ -4,13 +4,11 @@ const aws = require('aws-sdk');
 
 import { AwsS3 } from '../../aws-s3/controllers/aws-s3.lib';
 const config = require('../../../config/config');
-let logger = config.logger;
 
 var ProductCategoryModel = require('mongoose').model('ProductCategory');
-var ProductProductCategoryModel = require('mongoose').model('ProductProductCategory');
 
 export var getProductCategories = function (req, res, next) {
-    // logger.info('product-categories.controller.getProductCategories');
+    // console.log('product-categories.controller.getProductCategories');
 
     ProductCategoryModel
         .find({}, 'Key DisplayIndex ImageUrl')
@@ -20,7 +18,7 @@ export var getProductCategories = function (req, res, next) {
                 res.writeHead(500);
                 return next(err);
             } else {
-                // logger.info('product-categories.controller.getProductCategories: products found productCategories = ' + productCategories);
+                // console.log('product-categories.controller.getProductCategories: products found productCategories = ' + productCategories);
                 res.send(200, productCategories);
                 return next();
             }
@@ -35,6 +33,7 @@ export var addProductCategory = function (req, res, next) {
 
         if (err) return next(err);
         if (productCategory) {
+            console.log('Unable to insert duplicate productCategory ' + req.body.productCategory);
             res.writeHead(500);
             res.end('Unable to insert duplicate productCategory ' + req.params.productCategory);
             return next();
@@ -43,14 +42,14 @@ export var addProductCategory = function (req, res, next) {
                 productCategory = new ProductCategoryModel(newProductCategory);
             }
             catch (err) {
-                logger.error(err);
+                console.log('Error = ' + err);
                 throw err;
             }
 
             productCategory.save(
                 function (err, productCategory, numAffected) {
                     if (err) {
-                        logger.error(err);
+                        console.log(err);
                         res.writeHead(500);
                         res.end(err);
                     } else {
@@ -64,38 +63,19 @@ export var addProductCategory = function (req, res, next) {
 
 export var deleteProductCategory = function (req, res, next) {
 
-    ProductCategoryModel.findOne({ Key: req.params.productCategory }).exec(function (err, productCategory) {
-        if (err) {
-            res.writeHead(500);
-            return next(err);
-        } else {
-            ProductProductCategoryModel.remove({ ProductCategory: productCategory._id },
-                (err, productProductCategory) => {
-                    if (err) {
-                        logger.error(err);
-                        res.writeHead(500);
-                        res.end(err);
-                    } else {
-                        ProductCategoryModel.remove({ Key: req.params.productCategory },
-                            function (err, productCategory) {
-                                if (err) {
-                                    logger.error(err);
-                                    res.writeHead(500);
-                                    res.end(err);
-                                } else {
-                                    res.send(201, {
-                                        'message': 'Product Category (' + req.params.productCategory + ') Successfully Removed',
-                                        'productCategoryName': req.params.productCategory
-                                    });
-
-                                    return next();
-                                }
-                            });
-                    }
+    ProductCategoryModel.remove({ Key: req.params.productCategory },
+        function (err, productCategory) {
+            if (err) {
+                console.log(err);
+                res.writeHead(500);
+                res.end(err);
+            } else {
+                res.send(201, {
+                    'message': 'Product Category (' + req.params.productCategory + ') Successfully Removed',
+                    'productCategoryName': req.params.productCategory
                 });
-
-        }
-    });
+            }
+        });
 
 };
 
@@ -283,7 +263,8 @@ export var updateProductCategory = function (req, res, next) {
     //                 });
     //         }
     //         catch (err) {
-    //             logger.error(err);
+    //             console.log('err = ');
+    //             console.log(err);
     //             throw err;
     //         }
     //     } else {

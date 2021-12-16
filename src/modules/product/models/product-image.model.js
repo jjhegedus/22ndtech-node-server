@@ -21,6 +21,7 @@ var productImageSchema = new Schema({
 productImageSchema.set('timestamps', true); // include timestamps in docs
 // productImageSchema.index({ 'Product': 1, 'DisplayIndex': 1 }, { unique: true });
 productImageSchema.pre('validate', function (next) {
+    console.log('product-image.model.ts:productImageSchema.pre');
     if (!this._doc.DisplayIndex) {
         getNextDisplayIndex(this.Product, (nextDisplayIndex, thisObject) => {
             thisObject._doc.DisplayIndex = nextDisplayIndex;

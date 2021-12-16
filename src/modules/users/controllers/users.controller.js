@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const config = require('../../../config/config');
-let logger = config.logger;
 let jwt = require('jsonwebtoken');
 let nodemailer = require('../../../config/lib/nodemailer')();
 let ResetPasswordModel = require('mongoose').model('ResetPassword');
@@ -89,6 +88,7 @@ exports.signout = function (req, res) {
 };
 exports.decodeToken = function (req, res, next) {
     var token = req.cookies.jsonWebToken;
+    // console.log('token = ' + JSON.stringify(token));
     jwt.verify(token, config.jwtSecret, function (err, decoded) {
         if (err) {
             return res.status(401).send("Unable to verify request token.  Unauthorized access");
@@ -122,7 +122,7 @@ exports.userById = function (req, res, next, id) {
     });
 };
 exports.getUserById = function (req, res, next) {
-    logger.debug('req.id = ' + req.params.id);
+    console.log('req.id = ' + req.params.id);
     UserModel.findById(req.params.id).exec(function (err, user) {
         if (err)
             return next(err);

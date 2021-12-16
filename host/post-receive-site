@@ -1,0 +1,16 @@
+#!/bin/sh -x
+echo "git starting post-receive of web site in folder"
+pwd
+date
+
+GIT_DIR='/usr/local/src/22ndtech-server'
+
+#Update the node modules
+npm install
+
+#restart the apgv-server service
+sudo service 22ndtech-server restart
+
+
+# Create in the <git-repo>/hooks directory
+# After creating, make executable using : chmod +x post-receive

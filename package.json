@@ -8,7 +8,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "22ndtech-common-lib": "0.0.6",
+    "22ndtech-common-lib": "0.0.3",
     "@types/rx": "^4.1.1",
     "@types/stripe": "^2.0.2",
     "any-observable": "^0.2.0",
@@ -55,8 +55,6 @@
   "scripts": {
     "start": "SET APP_ENVIRONMENT=prod&& nodemon --watch src --ignore src/**/**.spec.* src/app.ts",
     "start-dev": "SET APP_ENVIRONMENT=dev&& nodemon --watch src --ignore src/**/**.spec.* src/app.ts",
-    "start-prod": "SET APP_ENVIRONMENT=prod&& nodemon --watch src --ignore src/**/**.spec.* src/app.ts",
-    "linux-start-prod": "APP_ENVIRONMENT=prod nodemon --watch src --ignore src/**/**.spec.* src/app.ts",
     "test-jasmine": "jasmine-node ./src --verbose --color --autotest --watch ./src",
     "test": "mocha src/**/**.spec.js",
     "test-dev": "SET APP_SERVER_NAME=localhost&& SET APP_SERVER_PORT=8081&& SET APP_SERVER_HTTPS=false&& SET APP_DB_PATH=mongodb://localhost/productsdb&& mocha src/**/**.spec.js",
