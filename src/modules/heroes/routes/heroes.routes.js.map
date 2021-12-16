@@ -1,0 +1,1 @@
+{"version":3,"file":"heroes.routes.js","sourceRoot":"","sources":["heroes.routes.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,MAAM,gBAAgB,GAAG,OAAO,CAAC,kCAAkC,CAAC,CAAC;AAErE,MAAM,CAAC,OAAO,GAAG,UAAU,GAAG;IAC1B,kCAAkC;IAClC,GAAG,CAAC,GAAG,CAAC,SAAS,EAAE,gBAAgB,CAAC,SAAS,CAAC,CAAC;AACnD,CAAC,CAAC"}

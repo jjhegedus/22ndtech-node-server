@@ -1,0 +1,29 @@
+/*jslint node: true */
+'use strict';
+
+var mongoose = require('mongoose');
+require('mongoose-currency').loadType(mongoose);
+var uniqueValidator = require('mongoose-unique-validator');
+
+var Schema = mongoose.Schema;
+
+var productProductCategorySchema = new Schema({
+    Product: {
+        type: Schema.ObjectId,
+        ref: 'Product'
+    }
+    , ProductCategory: {
+        type: Schema.ObjectId,
+        ref: 'ProductCategory'
+    }
+});
+
+productProductCategorySchema.set('timestamps', true); // include timestamps in docs
+
+productProductCategorySchema.index({ 'Product': 1, 'ProductCategory': 1 }, { unique: true });
+
+// apply the mongoose unique validator plugin to the schema
+productProductCategorySchema.plugin(uniqueValidator);
+
+export
+    var ProductProductCategoryModel = mongoose.model('ProductProductCategory', productProductCategorySchema);

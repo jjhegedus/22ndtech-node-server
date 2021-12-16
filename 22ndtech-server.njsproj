@@ -1,0 +1,241 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>22ndtech-server</Name>
+    <RootNamespace>22ndtech-server</RootNamespace>
+    <Environment>APP_SERVER_NAME=localhost
+APP_SERVER_PORT=8081
+APP_DB_PATH=mongodb://localhost/productsdb</Environment>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>fdc1c7c5-8582-4b93-9061-85e7c02b3be3</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>src\app.ts</StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>False</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="set-dev-environment-variables.bat" />
+    <Content Include="set-prod-environment-variables.bat" />
+    <Content Include="src\modules\checkout\controllers\checkout.controller.js.map" />
+    <Content Include="src\modules\checkout\models\stripe-seller.model.js.map" />
+    <Content Include="src\modules\checkout\routes\checkout.routes.js.map" />
+    <Content Include="src\modules\endicia\controllers\endicia.controller.js.map" />
+    <Content Include="src\modules\endicia\models\endicia-account.model.js.map" />
+    <Content Include="src\modules\endicia\models\endicia-shipment.model.js.map" />
+    <Content Include="src\modules\endicia\routes\endicia.routes.js.map" />
+    <Content Include="typings\globals\mocha\typings.json" />
+    <TypeScriptCompile Include="src\app.ts" />
+    <Content Include="OpenSSL\22ndtech-private-nopass.pem" />
+    <Content Include="OpenSSL\22ndtech-private.pem" />
+    <Content Include="OpenSSL\22ndtech-public.pem" />
+    <Content Include="OpenSSL\22ndtech-request.csr" />
+    <Content Include="OpenSSL\22ndtech-server.crt" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
+    <TypeScriptCompile Include="src\config\test.config.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\aws-s3\controllers\aws-s3.controller.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\aws-s3\controllers\aws-s3.lib.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\checkout\controllers\checkout.controller.ts" />
+    <TypeScriptCompile Include="src\modules\checkout\models\stripe-seller.model.ts" />
+    <TypeScriptCompile Include="src\modules\checkout\routes\checkout.routes.ts" />
+    <TypeScriptCompile Include="src\modules\core\routes\core.spec.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\endicia\controllers\endicia.controller.ts" />
+    <TypeScriptCompile Include="src\modules\endicia\models\endicia-account.model.ts" />
+    <TypeScriptCompile Include="src\modules\endicia\models\endicia-shipment.model.ts" />
+    <TypeScriptCompile Include="src\modules\endicia\routes\endicia.routes.ts" />
+    <TypeScriptCompile Include="src\modules\hello\routes\hello.spec.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\heroes\controllers\heroes.controller.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\heroes\routes\heroes.routes.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\mongoose-utilities\controllers\sequences.controller.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\mongoose-utilities\models\sequences.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\controllers\product.controller.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\controllers\product-images.controller.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\models\product-image.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\models\product.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\product.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\routes\product.routes.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\product\routes\product.spec.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\settings\models\settings.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\modules\system\controllers\system.controller.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="test\cleanup.spec.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="typings\globals\mocha\index.d.ts" />
+    <TypeScriptCompile Include="typings\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\config\" />
+    <Folder Include="src\config\lib\" />
+    <Folder Include="src\modules\" />
+    <Folder Include="src\modules\aws-s3\" />
+    <Folder Include="src\modules\aws-s3\controllers\" />
+    <Folder Include="src\modules\checkout\" />
+    <Folder Include="src\modules\checkout\controllers\" />
+    <Folder Include="src\modules\checkout\models\" />
+    <Folder Include="src\modules\checkout\routes\" />
+    <Folder Include="src\modules\core\" />
+    <Folder Include="src\modules\core\controllers\" />
+    <Folder Include="src\modules\core\routes\" />
+    <Folder Include="src\modules\endicia\" />
+    <Folder Include="src\modules\endicia\controllers\" />
+    <Folder Include="src\modules\endicia\models\" />
+    <Folder Include="src\modules\endicia\routes\" />
+    <Folder Include="src\modules\hello\" />
+    <Folder Include="src\modules\hello\controllers\" />
+    <Folder Include="src\modules\hello\routes\" />
+    <Folder Include="src\modules\heroes\" />
+    <Folder Include="src\modules\heroes\controllers\" />
+    <Folder Include="src\modules\heroes\routes\" />
+    <Folder Include="src\modules\mongoose-utilities\" />
+    <Folder Include="src\modules\system\" />
+    <Folder Include="src\modules\settings\" />
+    <Folder Include="src\modules\product\" />
+    <Folder Include="src\modules\product\controllers\" />
+    <Folder Include="src\modules\product\models\" />
+    <Folder Include="src\modules\product\routes\" />
+    <Folder Include="src\modules\settings\models\" />
+    <Folder Include="src\modules\mongoose-utilities\controllers\" />
+    <Folder Include="src\modules\mongoose-utilities\models\" />
+    <Folder Include="src\modules\system\controllers\" />
+    <Folder Include="test\" />
+    <Folder Include="OpenSSL\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="Scripts\typings\" />
+    <Folder Include="Scripts\typings\node\" />
+    <Folder Include="test\output\" />
+    <Folder Include="typings\" />
+    <Folder Include="typings\globals\" />
+    <Folder Include="typings\globals\mocha\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\config\assets.js" />
+    <Compile Include="src\config\config.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\config\lib\mongoose.js" />
+    <Compile Include="src\config\lib\restify.js" />
+    <Compile Include="src\modules\checkout\controllers\checkout.controller.js" />
+    <Compile Include="src\modules\checkout\models\stripe-seller.model.js" />
+    <Compile Include="src\modules\checkout\routes\checkout.routes.js" />
+    <Compile Include="src\modules\core\controllers\core.controller.js" />
+    <Compile Include="src\modules\core\routes\core.routes.js" />
+    <Compile Include="src\modules\endicia\controllers\endicia.controller.js" />
+    <Compile Include="src\modules\endicia\models\endicia-account.model.js" />
+    <Compile Include="src\modules\endicia\models\endicia-shipment.model.js" />
+    <Compile Include="src\modules\endicia\routes\endicia.routes.js" />
+    <Compile Include="src\modules\hello\controllers\hello.controller.js" />
+    <Compile Include="src\modules\hello\routes\hello.routes.js" />
+  </ItemGroup>
+  <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

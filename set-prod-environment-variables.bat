@@ -1,0 +1,4 @@
+SET APP_SERVER_NAME=localhost
+SET APP_SERVER_PORT=8081
+SET APP_SERVER_HTTPS=false
+SET APP_DB_PATH=mongodb://localhost/productsdb

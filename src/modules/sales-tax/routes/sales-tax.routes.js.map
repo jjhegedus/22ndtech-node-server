@@ -1,0 +1,1 @@
+{"version":3,"file":"sales-tax.routes.js","sourceRoot":"","sources":["sales-tax.routes.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,MAAM,kBAAkB,GAAG,OAAO,CAAC,qCAAqC,CAAC,CAAC;AAE1E,MAAM,CAAC,OAAO,GAAG,UAAU,GAAG;IAC1B,kCAAkC;IAClC,GAAG,CAAC,GAAG,CAAC,YAAY,EAAE,kBAAkB,CAAC,WAAW,CAAC,CAAC;AAC1D,CAAC,CAAC"}
